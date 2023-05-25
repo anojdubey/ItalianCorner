@@ -44,93 +44,94 @@ const HomeScreen = () => {
     );
   }
   return (
-    <View
-      style={{
-        marginTop: 20,
-        marginBottom: 110,
-      }}>
-      <SafeAreaView>
-        <HeaderTab activeTab={activeTab} setActiveTab={setActiveTab} />
-        <ScrollView>
-          {mapData?.map((food, index) => (
-            <TouchableOpacity
-              key={index}
-              activeOpacity={1}
-              style={{
-                marginBottom: 0,
-                display: food.type == activeTab ? 'flex' : 'none',
-              }}>
-              <View
+    <SafeAreaView>
+      <ScrollView
+        style={{
+          marginTop: 20,
+        }}>
+        <SafeAreaView>
+          <HeaderTab activeTab={activeTab} setActiveTab={setActiveTab} />
+          <ScrollView>
+            {mapData?.map((food, index) => (
+              <TouchableOpacity
                 key={index}
-                nativeID={food._id}
+                activeOpacity={1}
                 style={{
-                  marginTop: 10,
-                  padding: 15,
-                  backgroundColor: '#eee',
+                  marginBottom: 0,
+                  display: food.type == activeTab ? 'flex' : 'none',
                 }}>
-                <Image
-                  source={{uri: food?.image}}
-                  style={{
-                    width: '100%',
-                    height: 180,
-                  }}
-                />
                 <View
+                  key={index}
+                  nativeID={food._id}
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
                     marginTop: 10,
+                    padding: 15,
+                    backgroundColor: '#eee',
                   }}>
+                  <Image
+                    source={{uri: food?.image}}
+                    style={{
+                      width: '100%',
+                      height: 180,
+                    }}
+                  />
                   <View
                     style={{
-                      display: 'flex',
-                      width: '100%',
-                      justifyContent: 'space-between',
                       flexDirection: 'row',
+                      justifyContent: 'space-between',
                       alignItems: 'center',
-                      paddingLeft: 7,
-                      paddingRight: 7,
+                      marginTop: 10,
                     }}>
-                    <Text
+                    <View
                       style={{
-                        fontSize: 15,
-                        fontWeight: '900',
-                        color: 'black',
+                        display: 'flex',
+                        width: '100%',
+                        justifyContent: 'space-between',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        paddingLeft: 7,
+                        paddingRight: 7,
                       }}>
-                      {food.title}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        color: 'gray',
-                      }}>
-                      {food?.cost}Rs
-                    </Text>
-                    <AddCart
-                      cartItems={cartItems}
-                      food={food}
-                      setCartItems={setCartItems}
-                    />
+                      <Text
+                        style={{
+                          fontSize: 15,
+                          fontWeight: '900',
+                          color: 'black',
+                        }}>
+                        {food.title}
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          color: 'gray',
+                        }}>
+                        {food?.cost}Rs
+                      </Text>
+                      <AddCart
+                        cartItems={cartItems}
+                        food={food}
+                        setCartItems={setCartItems}
+                      />
+                    </View>
                   </View>
                 </View>
+              </TouchableOpacity>
+            ))}
+            {cartItems?.length > 0 && (
+              <View style={{flex: 1}}>
+                <Button
+                  title="Go to Cart"
+                  onPress={() => {
+                    navigation.navigate('Cart', {cartItems: [...cartItems]});
+                  }}
+                  color={'#f4511e'}
+                />
               </View>
-            </TouchableOpacity>
-          ))}
-          {cartItems?.length > 0 && (
-            <View style={{flex: 1}}>
-              <Button
-                title="Go to Cart"
-                onPress={() => {
-                  navigation.navigate('Cart', {cartItems: [...cartItems]});
-                }}
-                color={'#f4511e'}
-              />
-            </View>
-          )}
-        </ScrollView>
-      </SafeAreaView>
-    </View>
+            )}
+          </ScrollView>
+        </SafeAreaView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

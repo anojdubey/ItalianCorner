@@ -1,6 +1,7 @@
 import {View, Text, Image, TouchableOpacity, Button} from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 const OrderScreen = () => {
   const [myOrder, setMyOrder] = React.useState([]);
   const navigation = useNavigation();
@@ -16,31 +17,33 @@ const OrderScreen = () => {
   }, []);
   if (!myOrder || myOrder.length === 0) {
     return (
-      <View
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: 20,
-        }}>
-        <Text
+      <SafeAreaView>
+        <View
           style={{
-            fontSize: 20,
-            fontWeight: 'bold',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 20,
           }}>
-          No Orders Found{' '}
-        </Text>
-        <Button
-          title="Go to Home"
-          color={'#f4511e'}
-          style={{
-            borderRadius: 20,
-          }}
-          onPress={() => {
-            navigation.navigate('Home');
-          }}
-        />
-      </View>
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: 'bold',
+            }}>
+            No Orders Found{' '}
+          </Text>
+          <Button
+            title="Go to Home"
+            color={'#f4511e'}
+            style={{
+              borderRadius: 20,
+            }}
+            onPress={() => {
+              navigation.navigate('Home');
+            }}
+          />
+        </View>
+      </SafeAreaView>
     );
   }
   return (

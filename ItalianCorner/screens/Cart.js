@@ -4,6 +4,7 @@ import AddCart from '../components/AddCart';
 import AddOrder from './AddOrder';
 import RazorpayCheckout from 'react-native-razorpay';
 import {useNavigation} from '@react-navigation/native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 const Cart = ({route, navigate}) => {
   const [orderItems, setOrderItems] = React.useState([
     ...route.params.cartItems,
@@ -64,64 +65,66 @@ const Cart = ({route, navigate}) => {
   };
   console.log(paymentData);
   return (
-    <View>
-      {route.params.cartItems.map((item, index) => (
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            margin: 10,
-            padding: 10,
-            borderBottomWidth: 1,
-          }}
-          key={index}>
-          <View>
+    <SafeAreaView>
+      <View>
+        {route.params.cartItems.map((item, index) => (
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              margin: 10,
+              padding: 10,
+              borderBottomWidth: 1,
+            }}
+            key={index}>
+            <View>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                }}>
+                {item.title}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontWeight: '600',
+                }}>
+                {item.cost}
+              </Text>
+            </View>
+            <AddOrder
+              item={item}
+              orderItems={orderItems}
+              setOrderItems={setOrderItems}
+            />
+          </View>
+        ))}
+        <TouchableOpacity onPress={() => paymentHandler()}>
+          <View
+            style={{
+              display: 'flex',
+              width: '50%',
+              alignSelf: 'center',
+              borderRadius: 50,
+              padding: 10,
+              backgroundColor: '#f4511e',
+            }}>
             <Text
               style={{
-                fontSize: 20,
+                fontSize: 16,
+                color: '#fff',
                 fontWeight: 'bold',
+                textAlign: 'center',
               }}>
-              {item.title}
-            </Text>
-            <Text
-              style={{
-                fontSize: 15,
-                fontWeight: '600',
-              }}>
-              {item.cost}
+              Place Order for : {totalOrder}Rs
             </Text>
           </View>
-          <AddOrder
-            item={item}
-            orderItems={orderItems}
-            setOrderItems={setOrderItems}
-          />
-        </View>
-      ))}
-      <TouchableOpacity onPress={() => paymentHandler()}>
-        <View
-          style={{
-            display: 'flex',
-            width: '50%',
-            alignSelf: 'center',
-            borderRadius: 50,
-            padding: 10,
-            backgroundColor: '#f4511e',
-          }}>
-          <Text
-            style={{
-              fontSize: 16,
-              color: '#fff',
-              fontWeight: 'bold',
-              textAlign: 'center',
-            }}>
-            Place Order for : {totalOrder}Rs
-          </Text>
-        </View>
-      </TouchableOpacity>
-    </View>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 

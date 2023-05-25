@@ -25,8 +25,7 @@ const AddCart = ({setCartItems, food, cartItems}) => {
             ]);
             return;
           } else {
-            const newCartItems = cartItems.filter(item => item !== food);
-            setCartItems(newCartItems);
+            setCartItems(cartItems.filter(item => item.title !== food.title));
             return;
           }
         }}
